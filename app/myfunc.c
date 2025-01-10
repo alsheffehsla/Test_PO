@@ -3,7 +3,7 @@
 #include <math.h>
 #include "myfunc.h"
 
-struct Roots {
+typedef struct Roots {
 	double root1;
 	double root2;
 };
