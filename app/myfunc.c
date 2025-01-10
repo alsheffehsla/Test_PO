@@ -14,7 +14,7 @@ double formula(double a, double b, double c) {
     double discriminant = b * b - 4 * a * c;
 
     if (discriminant > 0) {
-		Roots ret;
+		struct Roots ret;
         ret.root1 = (-b + sqrt(discriminant)) / (2 * a);
         ret.root2 = (-b - sqrt(discriminant)) / (2 * a);
 		return ret; //  Уравнение имеет два корня: root1, root2
