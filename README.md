@@ -1,72 +1,29 @@
-[![CI/CD GitHub Actions](https://github.com/seekerk/ctest/actions/workflows/test-action.yml/badge.svg)](https://github.com/seekerk/ctest/actions/workflows/test-action.yml)
-[![Coverage Status](https://coveralls.io/repos/seekerk/ctest/badge.svg?branch=main)](https://coveralls.io/github/seekerk/ctest?branch=main)
+[![CI/CD GitHub Actions](https://github.com/alsheffehsla/Test_PO/actions/workflows/test-action.yml/badge.svg)](https://github.com/alsheffehsla/Test_PO/actions/workflows/test-action.yml)
+[![Coverage Status](https://coveralls.io/repos/github/alsheffehsla/Test_PO/badge.svg?branch=main)](https://coveralls.io/github/alsheffehsla/Test_PO?branch=main)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=seekerk_ctest&metric=alert_status)](https://sonarcloud.io/dashboard?id=seekerk_ctest)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=seekerk_ctest&metric=bugs)](https://sonarcloud.io/summary/new_code?id=seekerk_ctest)
 [![Code smells](https://sonarcloud.io/api/project_badges/measure?project=seekerk_ctest&metric=code_smells)](https://sonarcloud.io/dashboard?id=seekerk_ctest)
 
-# Пример работы связки cmake + Google Test (gtest)
-
-Для подгрузки gtest необходимо выполнить команды:
-```
-git submodule init
-git submodule update
-```
-
-4. Запустить создание Make файлов:
-```shell
-cmake .
-```
-5. выполнить сборку приложения:
-```shell
-make
-```
-6. Выполнить запуск тестов
-```shell
-./tests/tests
-```
-
-## Создание проекта на базе примера
-
-1. Удалить каталог .git из директории проекта
-2. Выполнить инициализацию нового репозитория
-```shell
-git init
-```
-3. Выполнить модификацию приложения в каталоге `app/`: 
-   - удалить модуль myfunc, 
-   - создать модуль(и) со своими функциями, 
-   - исправить подключение заголовочных файлов и работуглавной функции (файл `main.c`) 
-   - обновить перечень файлов проекта (файл `app.pro`, секции `SOURCES` и `HEADERS`)
-4. Выполнить модификацию тестов в каталоге `tests/`:
-   - удалить примеры тестов
-   - добавить заголовочные файлы со своими тестами
-   - обновить список подключений заголовочных файлов в main.cpp
-   - обновить перечень файлов проекта включая файлы приложения (файл `tests.pro`, секции `SOURCES` и `HEADERS`)
-5. Подключить внешний репозиторий следуя инструкциям Github
-6. Загрузить код на Github
-
-### Запуск тестов на Github actions
-1. Сборка и запуск приложения осуществляется с помощью github actions.
-2. Конфигурационный скрипт лежит в каталоге .gihub/workflows
-3. Необходимо удостовериться что выполняется сборка и запуск тестов до секции с отправкой статистик
-4. Обновить бейдж сборки в соответствии с названием профиля и репозитория
-
-### Соединение с coveralls.io
-
-1. Необходимо зайти на сайт coveralls.io и авторизоваться через github
-2. Подключить репозиторий с своим проектом
-3. В настройках репозитория скопировать токен
-4. В настройках гитхаба в разделе `secrets - actions` создать ключ `coveralls_token` со значением токена
-5. Запустить github actions, проверить успешное выполнение задания gtest-tests
-6. проверить появление статистики на coveralls.io
-7. Обновить бейдж покрытия в соответствии с названием профиля и репозитория
-
-### Соединение с sonarcloud
-1. Необходимо зайти на сайт https://sonarcloud.io и авторизоваться через github
-2. Создать новый проект, выбрать github actions, указать свой репозиторий
-3. Скопировать токен проекта, в настройках github в разделе `secrets - actions` создать ключ `sonar_token` со значением токена
-4. продолжить настройку проекта на sonarcloud до раздела с конфигурационным файлом
-5. Изменить значения названия проекта и организации в файле sonar-project.properties в соответствии с предложенными
-6. Запустить github actions, проверить успешное выполнение задания gtest-tests
-7. проверить появление результатов на sonarcloud
-8. Обновить бейджи статистик в соответствии с названием профиля и репозитория
+### План функционального тестирования
+1. Идентификатор плана тестирования (ID)
+      ID = Test_PO_01. 
+2. Список функций для тестирования
+      Тестированию подвергается одна функция вычисления корней квадратного уравнения
+      `void formula(double a, double b, double c, double* root1, double* root2)`
+3. Подход
+      Тестирование должно проходить в автоматическом режиме. В каталоге `tests/` подготовлен файл `formula-test.h`, содержащий макросы `TEST`.
+      Запуск осуществляется функцией `RUN_ALL_TESTS()` из драйвера запуска тестов `main.cpp` в том же каталоге `tests/`. 
+      Все тесты входят в один набор `formulaTest`:
+      - тест `a0` осуществляет проверку, является ли уравнение квадратным;
+      - тест `2_roots` ожидает два корня уравнения при положительном дискриминанте;
+      - тест `1_root` ожидает один корень уравнения при нулевом дискриминанте;
+      - тест `0_root` ожидает нули в обоих корнях при отрицательном дискриминанте.
+4. Критерии прохождения и провала
+      Тестирование проводится сравнительным утверждением `ASSERT_EQ(expected, actual);`, результатом которого может быть критический отказ (fatal failure). В тестируемую функцию передаются входные параметры, а результаты ее работы сравниваются с ожидаемой величиной.
+      Критерием прохождения теста является точное совпадение реальной и ожидаемой величин. 
+      - В выводе `gtest-tests` секция `Run make CTEST_OUTPUT_ON_FAILURE=1 test` в разделе `CI/CD GitHub Action`положительным прохожденим теста является запись `100% tests passed, 0 tests failed out of 1`. 
+      - В случае отрицательного результата запись будет иметь следующий вид `Error: Process completed with exit code XX.`, также появятся записи вида `[  FAILED  ]`, указывающие какой конкретно тест провален.
+5. Результаты тестирования
+      Все тесты должны проходить успешно.
+6. Инструменты и ресурсы
+      Основным инструментом проверки является `Google testing framework (gtest)` на платформе непрерывной интеграции и непрерывной доставки `CI/CD GitHub Actions`.
