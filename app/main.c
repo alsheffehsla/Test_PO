@@ -5,5 +5,4 @@
 int main()
 {
     printf("Hello, Hello!\n");
-    return myfunc(2);
 }
