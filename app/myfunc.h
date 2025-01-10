@@ -2,6 +2,6 @@
 #define MYFUNC_H
 
 
-double formula(double a, double b, double c);
+void formula(double a, double b, double c, double* root1, double* root2);
 
 #endif // MYFUNC_H
