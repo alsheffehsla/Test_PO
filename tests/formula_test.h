@@ -43,5 +43,4 @@ TEST(formulaTest, 0_root) {
     ASSERT_EQ(root_1, -111);
     root_1=0;
 }
-
 #endif // FORMULA_H
