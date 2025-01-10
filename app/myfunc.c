@@ -3,10 +3,7 @@
 #include <math.h>
 #include "myfunc.h"
 
-typedef struct{
-	double root1;
-	double root2;
-} Roots;
+
 
 // Функция для вычисления корней квадратного уравнения
 double formula(double a, double b, double c) {
